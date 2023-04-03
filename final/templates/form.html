@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <title>FORM</title>
+  <head>
+<script>
+
+var subjectObject = {
+  "Commerce": {
+    "B-COM": ["Links", "Images", "Tables", "Lists"],
+    "BBA": ["Borders", "Margins", "Backgrounds", "Float"],
+    "MBA": ["Variables", "Operators", "Functions", "Conditions"]
+  },
+  "B-TECH": {
+    "EEE": ["Variables", "Strings", "Arrays"],
+    "EC": ["SELECT", "UPDATE", "DELETE"],
+    "CS": ["SELECT", "UPDATE", "DELETE"],
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+  </head>
+  <body><!DOCTYPE html>
+
+{% if user.is_authenticated %}
+  <h3 style="color:blue"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello {{user.username}} </h3>
+{% endif %}
+<center>
+  <h1>FORM</h1>
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Enter your Name"><br>
+  <input type="number" name="dob" placeholder="Enter your DOB"><br>
+  <input type="number" name="age" placeholder="Enter your Age"><br><br>
+  <label for="Gender">Gender:</label>
+    <select name="gender" id="gender">
+    <option value="volvo">Male</option>
+    <option value="saab">Female</option>
+    </select>
+  <br><br>
+  <input type="number" name="mobile number" placeholder="Enter your Mobile Number"><br>
+  <input type="email" name="email" placeholder="Enter your Mail id"><br>
+  <input type="number" name="dob" placeholder="Enter your DOB"><br>
+  <input type="text" name="Address" placeholder="Enter your Address"><br>
+  <input type="text" name="Address" placeholder="Enter your Address"><br><br>
+  Department: <select name="subject" id="subject">
+    <option value="" selected="selected">Select Department</option>
+  </select>
+  <br><br>
+  Courses: <select name="topic" id="topic">
+    <option value="" selected="selected">Please select Department first</option>
+  </select>
+  <br><br>
+  <label for="Purpose">Purpose:</label>
+    <select name="purpose" id="gender">
+    <option value="volvo">Enquiry</option>
+    <option value="saab">Return</option>
+      <option value="saab">Purchase</option>
+    </select>
+  <br><br>
+  <label><b style="color:red"> Materials provide</b></label><br>
+    <label> Notebook</label><input type="checkbox">&nbsp;&nbsp;<label> Pen</label><input type="checkbox">&nbsp;&nbsp;<label> Notebook</label><input type="checkbox">&nbsp;&nbsp;<br><br>
+  <input type="submit" value="Submit">
+   <a href="/credential/logout"><input type="button" value="Logout"></a>
+</form>
+
+</center>
+  <center>
+  {% for msg in messages %}
+    <h1 style="color:green">{{msg}}</h1>
+    <a href="/"><h4>Go to main page</h4></a>
+{% endfor %}
+    </center>
+</body>
+</html>
+
